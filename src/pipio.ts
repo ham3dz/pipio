@@ -36,6 +36,8 @@ export class Pipio<TResponse, TContext> {
           if (params?.onError) {
             return params?.onError(e);
           }
+
+          throw e;
         }
       }
 
