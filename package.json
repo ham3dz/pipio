@@ -1,0 +1,21 @@
+{
+  "name": "pipio",
+  "version": "0.0.0-beta",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile:require": "tsc --project ./tsconfig.build.require.json",
+    "compile:import": "tsc --project ./tsconfig.build.import.json",
+    "compile": "run-s compile:require compile:import",
+    "build": "run-s clean compile",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all2": "^6.0.6",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2"
+  }
+}
