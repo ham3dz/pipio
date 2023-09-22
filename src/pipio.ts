@@ -1,37 +1,31 @@
-export type ChainHandler<TRequest, TResponse, TContext> = (
-  req: TRequest,
-  ctx: TContext
+export type ChainHandler<TRequest, TResponse> = (
+  req: TRequest
 ) => Promise<TResponse> | void;
 
-export type BuildParams = {
+export type BuildParams<TResponse> = {
   onError?: (err: unknown) => any;
-  buildContext?: (...args: any[]) => any;
+  onSuccess?: (result: TResponse) => any;
 };
 
-export class Pipio<TResponse, TContext> {
+export class Pipio<TResponse> {
   constructor(
     private readonly stack: [
-      ...ChainHandler<any, any, any>[],
-      ChainHandler<any, TResponse, any>
+      ...ChainHandler<any, any>[],
+      ChainHandler<any, TResponse>
     ]
   ) {}
 
-  use<TNextResponse, TNewContext = TContext>(
-    fn: ChainHandler<TResponse, TNextResponse, TContext>
-  ) {
-    return new Pipio<TNextResponse, TNewContext>([...this.stack, fn]);
+  use<TNextResponse>(fn: ChainHandler<TResponse, TNextResponse>) {
+    return new Pipio<TNextResponse>([...this.stack, fn]);
   }
 
-  build(params?: BuildParams) {
+  build(params?: BuildParams<TResponse>) {
     return async (...args: any[]) => {
-      const firstArgument = args[0];
-      let result: any = firstArgument;
-
-      const context = params?.buildContext ? params.buildContext(args) : {};
+      let result: any = args;
 
       for (const fn of this.stack) {
         try {
-          result = await fn(result, context);
+          result = await fn(result);
         } catch (e) {
           if (params?.onError) {
             return params?.onError(e);
@@ -42,10 +36,18 @@ export class Pipio<TResponse, TContext> {
       }
 
       if (this.stack.length === 0) {
-        return undefined;
+        result = undefined;
+      }
+
+      if (params?.onSuccess) {
+        result = params.onSuccess(result);
       }
 
       return result;
     };
   }
 }
+
+export const pipio = <TResponse>(fn: ChainHandler<any[], TResponse>) => {
+  return new Pipio([fn]);
+};

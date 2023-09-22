@@ -1,7 +1,7 @@
 {
   "name": "pipio",
-  "version": "0.0.0-beta",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Pipes chain if handlers",
   "main": "./dist/require/index.js",
   "module": "./dist/import/index.js",
   "types": "./dist/types/index.d.ts",
@@ -19,7 +19,11 @@
     "build": "run-s clean compile",
     "prepublishOnly": "npm run build"
   },
-  "author": "",
+  "author": {
+    "name": "Hamed Shirzadpour",
+    "email": "shirzadpour@outlook.com",
+    "url": "https://github.com/ham3dz"
+  },
   "license": "ISC",
   "devDependencies": {
     "npm-run-all2": "^6.0.6",
