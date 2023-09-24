@@ -1,3 +1,5 @@
+import { isPromise } from './utils';
+
 export type PipioHandler<T, U> = (req: T) => U | Promise<U> | void;
 
 export type BuildParams = {
@@ -42,7 +44,7 @@ export class Pipio<U> {
 
           // if handler returns a promise, the we need to wait,
           // otherwise, we're good to go
-          if (handlerResult instanceof Promise) {
+          if (isPromise(handlerResult) === true) {
             output = await handlerResult;
           } else {
             output = handlerResult;
