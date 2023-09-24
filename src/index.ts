@@ -1,2 +1,2 @@
-export * from "./pipio";
-export * from "./middlewares";
+export * from './pipio';
+export * as handlers from './handlers';

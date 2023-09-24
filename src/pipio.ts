@@ -49,7 +49,7 @@ export class Pipio<U> {
           }
         } catch (e) {
           // user handles the error, pass the error to their handler
-          if (typeof params?.onError === "function") {
+          if (typeof params?.onError === 'function') {
             return params?.onError(e);
           }
 
