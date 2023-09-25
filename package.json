@@ -1,6 +1,6 @@
 {
   "name": "pipio",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Chain functions together and handle a complex workflow",
   "main": "./dist/require/index.js",
   "module": "./dist/import/index.js",
