@@ -1,6 +1,7 @@
 import { isPromise } from './utils';
 
-export type PipioHandler<T, U> = (req: T) => U | Promise<U> | void;
+export type PipioHandler<T, U> = (req: T) => U;
+export type AsyncPipioHandler<T, U> = (req: T) => Promise<U>;
 
 export type BuildParams = {
   /**
