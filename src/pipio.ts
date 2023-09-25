@@ -1,7 +1,11 @@
 import { isPromise } from './utils';
 
-export type PipioHandler<T, U> = (req: T) => U;
+export type SyncPipioHandler<T, U> = (req: T) => U;
 export type AsyncPipioHandler<T, U> = (req: T) => Promise<U>;
+
+export type PipioHandler<T, U> =
+  | SyncPipioHandler<T, U>
+  | AsyncPipioHandler<T, U>;
 
 export type BuildParams = {
   /**
@@ -9,7 +13,7 @@ export type BuildParams = {
    * @param {Error|unknown} err Thrown error object
    * @returns The pipeline output or throw error
    */
-  onError?: (err: Error | unknown) => any;
+  onError?: (err: Error | any) => any;
 };
 
 export class Pipio<U> {
@@ -25,7 +29,7 @@ export class Pipio<U> {
    * @param fn Middleware function
    * @returns {Pipio} A new instance of the pipio with the handler setup
    */
-  use<TNextResponse>(fn: PipioHandler<U, TNextResponse>) {
+  use<TNextResponse>(fn: PipioHandler<Awaited<U>, TNextResponse>) {
     return new Pipio<TNextResponse>([...this.handlers, fn]);
   }
 
