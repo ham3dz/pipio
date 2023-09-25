@@ -1,4 +1,4 @@
-import { PipioHandler } from './pipio';
+import { SyncPipioHandler } from './pipio';
 
 /**
  * Lambda wrapper middleware
@@ -6,7 +6,7 @@ import { PipioHandler } from './pipio';
  * @returns A pipio handlers
  */
 export const lambdaWrapper =
-  <TEvent = any, TContext = any>(): PipioHandler<
+  <TEvent = any, TContext = any>(): SyncPipioHandler<
     Array<any>,
     { event: TEvent; context: TContext }
   > =>
