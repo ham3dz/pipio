@@ -6,5 +6,4 @@
  * @returns {Boolean}
  */
 export const isPromise = (promise: any) =>
-  promise instanceof Promise ||
-  (!!promise && typeof promise?.then === 'function');
+  promise instanceof Promise || typeof promise?.then === 'function';
