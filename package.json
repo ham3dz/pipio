@@ -1,12 +1,28 @@
 {
   "name": "pipio",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Chain functions together and handle a complex workflow",
+  "keywords": [
+    "cor",
+    "pipe",
+    "functional",
+    "compose",
+    "chain"
+  ],
+  "type": "commonjs",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "package-lock.json"
+  ],
   "main": "./dist/require/index.js",
   "module": "./dist/import/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/require/index.js",
       "import": "./dist/import/index.js"
     }
@@ -24,6 +40,14 @@
     "name": "Hamed Shirzadpour",
     "email": "shirzadpour@outlook.com",
     "url": "https://github.com/ham3dz"
+  },
+  "bugs": {
+    "url": "https://github.com/ham3dz/pipio/issues"
+  },
+  "homepage": "https://github.com/ham3dz/pipio#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ham3dz/pipio.git"
   },
   "license": "MIT",
   "devDependencies": {
