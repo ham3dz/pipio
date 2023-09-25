@@ -94,4 +94,57 @@ describe('pipio', () => {
       expect(handler()).rejects.toThrow('Failed');
     });
   });
+
+  describe('combined sync/async', () => {
+    it('multiple handler pipe', () => {
+      const handler = pipio((args: Array<any>) => [1, 2, 3])
+        .use(async (args) => args)
+        .use((args) => 'hi there')
+        .use(async (message) => `Hello ${message}`)
+        .build();
+
+      expect(handler()).resolves.toStrictEqual('Hello hi there');
+    });
+
+    it('multiple handler pipe w/ error handler', () => {
+      const handler = pipio((args: Array<any>) => [1, 2, 3])
+        .use(async (args) => args)
+        .use((args) => 'hi there')
+        .use(async (message) => `Hello ${message}`)
+        .use(async () => {
+          throw new Error('Failed');
+        })
+        .build({ onError: (e) => e });
+
+      expect(handler()).resolves.toBeInstanceOf(Error);
+    });
+
+    it('multiple handler pipe w/ error handler (error mapper)', () => {
+      const handler = pipio((args: Array<any>) => [1, 2, 3])
+        .use(async (args) => args)
+        .use((args) => 'hi there')
+        .use(async (message) => `Hello ${message}`)
+        .use(async () => {
+          throw new Error('Failed');
+        })
+        .build({ onError: (e: Error) => ({ message: e.message }) });
+
+      expect(handler()).resolves.toStrictEqual({
+        message: 'Failed',
+      });
+    });
+
+    it('multiple handler pipe w/o error handler', () => {
+      const handler = pipio((args: Array<any>) => [1, 2, 3])
+        .use(async (args) => args)
+        .use((args) => 'hi there')
+        .use(async (message) => `Hello ${message}`)
+        .use(() => {
+          throw Error('Failed');
+        })
+        .build();
+
+      expect(handler()).rejects.toThrow('Failed');
+    });
+  });
 });
