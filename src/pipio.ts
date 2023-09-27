@@ -29,7 +29,7 @@ export class Pipio<U> {
    * @param fn Middleware function
    * @returns {Pipio} A new instance of the pipio with the handler setup
    */
-  use<TNextResponse>(fn: PipioHandler<Awaited<U>, TNextResponse>) {
+  use<TNextResponse>(fn: PipioHandler<Awaited<U>, Awaited<TNextResponse>>) {
     return new Pipio<TNextResponse>([...this.handlers, fn]);
   }
 

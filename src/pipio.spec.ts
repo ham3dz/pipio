@@ -7,6 +7,16 @@ describe('pipio', () => {
       expect(handler(1, 2, 3, 4)).resolves.toStrictEqual([1, 2, 3, 4]);
     });
 
+    it('use factory to create handler', () => {
+      const factory1 = () => (args: Array<any>) => args.reverse();
+
+      const handler = pipio((args: Array<any>) => args)
+        .use(factory1())
+        .build();
+
+      expect(handler(1, 2, 3, 4)).resolves.toStrictEqual([4, 3, 2, 1]);
+    });
+
     it('multiple handler pipe', () => {
       const handler = pipio((args: Array<any>) => args)
         .use((args) => args.reverse())
@@ -52,6 +62,16 @@ describe('pipio', () => {
     it('single handler pipe', () => {
       const handler = pipio(async (args: Array<any>) => args).build();
       expect(handler(1, 2, 3, 4)).resolves.toStrictEqual([1, 2, 3, 4]);
+    });
+
+    it('use factory to create handler', async () => {
+      const factory1 = async () => (args: Array<any>) => args.reverse();
+
+      const handler = pipio((args: Array<any>) => args)
+        .use(await factory1())
+        .build();
+
+      expect(handler(1, 2, 3, 4)).resolves.toStrictEqual([4, 3, 2, 1]);
     });
 
     it('multiple handler pipe', () => {

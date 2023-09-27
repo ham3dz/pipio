@@ -1,6 +1,6 @@
 {
   "name": "pipio",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Chain functions together and handle a complex workflow",
   "keywords": [
     "cor",
