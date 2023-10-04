@@ -1,7 +1,7 @@
 # pipio
 
-[![NPM version][npm-image]](https://github.com/ham3dz/pipio)
-[![NPM downloads][downloads-image]](https://github.com/ham3dz/pipio)
+[![NPM version][npm-image]](https://npmjs.com/package/pipio)
+[![NPM downloads][downloads-image]](https://npmjs.com/package/pipio)
 [![Build Status][github-actions-publish-npm-package]](https://github.com/ham3dz/pipio/actions/workflows/publish_npm_package.yml)
 
 ## About
